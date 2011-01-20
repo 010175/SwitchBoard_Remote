@@ -53,8 +53,9 @@
 		F01A184012E5846D00EFE871 /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F01A183412E5846D00EFE871 /* ofxOscSender.cpp */; };
 		F066D0FE12E764AB00338418 /* Anonymous Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F066D0FD12E764AB00338418 /* Anonymous Pro.ttf */; };
 		F066D10612E7668100338418 /* Anonymous Pro B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F066D10512E7668100338418 /* Anonymous Pro B.ttf */; };
-		F066D13012E77FF200338418 /* Helvetica Neue CE 55 Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F066D12F12E77FF200338418 /* Helvetica Neue CE 55 Roman.ttf */; };
-		F066D13612E7824B00338418 /* Helvetica Neue CE 75 Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F066D13512E7824B00338418 /* Helvetica Neue CE 75 Bold.ttf */; };
+		F066D13012E77FF200338418 /* Helvetica Neue Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F066D12F12E77FF200338418 /* Helvetica Neue Roman.ttf */; };
+		F066D13612E7824B00338418 /* Helvetica Neue Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F066D13512E7824B00338418 /* Helvetica Neue Bold.ttf */; };
+		F066D19012E7FB0200338418 /* Courier New.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F066D18F12E7FB0200338418 /* Courier New.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -192,8 +193,9 @@
 		F01A183512E5846D00EFE871 /* ofxOscSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscSender.h; sourceTree = "<group>"; };
 		F066D0FD12E764AB00338418 /* Anonymous Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Anonymous Pro.ttf"; sourceTree = "<group>"; };
 		F066D10512E7668100338418 /* Anonymous Pro B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Anonymous Pro B.ttf"; sourceTree = "<group>"; };
-		F066D12F12E77FF200338418 /* Helvetica Neue CE 55 Roman.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica Neue CE 55 Roman.ttf"; sourceTree = "<group>"; };
-		F066D13512E7824B00338418 /* Helvetica Neue CE 75 Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica Neue CE 75 Bold.ttf"; sourceTree = "<group>"; };
+		F066D12F12E77FF200338418 /* Helvetica Neue Roman.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica Neue Roman.ttf"; sourceTree = "<group>"; };
+		F066D13512E7824B00338418 /* Helvetica Neue Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica Neue Bold.ttf"; sourceTree = "<group>"; };
+		F066D18F12E7FB0200338418 /* Courier New.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Courier New.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -343,8 +345,9 @@
 		BB24DD8B10DA77E000E9C588 /* data */ = {
 			isa = PBXGroup;
 			children = (
-				F066D13512E7824B00338418 /* Helvetica Neue CE 75 Bold.ttf */,
-				F066D12F12E77FF200338418 /* Helvetica Neue CE 55 Roman.ttf */,
+				F066D18F12E7FB0200338418 /* Courier New.ttf */,
+				F066D13512E7824B00338418 /* Helvetica Neue Bold.ttf */,
+				F066D12F12E77FF200338418 /* Helvetica Neue Roman.ttf */,
 				F066D10512E7668100338418 /* Anonymous Pro B.ttf */,
 				BB24DD8C10DA77E000E9C588 /* Default.png */,
 				F01A17CC12E5826100EFE871 /* automat.ttf */,
@@ -761,8 +764,9 @@
 				F01A17CD12E5826100EFE871 /* automat.ttf in Resources */,
 				F066D0FE12E764AB00338418 /* Anonymous Pro.ttf in Resources */,
 				F066D10612E7668100338418 /* Anonymous Pro B.ttf in Resources */,
-				F066D13012E77FF200338418 /* Helvetica Neue CE 55 Roman.ttf in Resources */,
-				F066D13612E7824B00338418 /* Helvetica Neue CE 75 Bold.ttf in Resources */,
+				F066D13012E77FF200338418 /* Helvetica Neue Roman.ttf in Resources */,
+				F066D13612E7824B00338418 /* Helvetica Neue Bold.ttf in Resources */,
+				F066D19012E7FB0200338418 /* Courier New.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

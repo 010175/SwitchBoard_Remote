@@ -103,16 +103,16 @@
 	};
 	E4D8936C11527B74007E1F53 /* testApp.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1011, 994}}";
-			sepNavSelRange = "{1394, 0}";
-			sepNavVisRange = "{473, 926}";
+			sepNavIntBoundsRect = "{{0, 0}, {962, 1064}}";
+			sepNavSelRange = "{1457, 0}";
+			sepNavVisRange = "{392, 1119}";
 		};
 	};
 	E4D8936D11527B74007E1F53 /* testApp.mm */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {962, 4886}}";
-			sepNavSelRange = "{1102, 8}";
-			sepNavVisRange = "{699, 1135}";
+			sepNavIntBoundsRect = "{{0, 0}, {992, 4760}}";
+			sepNavSelRange = "{8472, 0}";
+			sepNavVisRange = "{436, 1272}";
 		};
 	};
 	F01A176C12E5810000EFE871 /* SwitchBoardRemote */ = {

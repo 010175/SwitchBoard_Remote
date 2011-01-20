@@ -61,6 +61,9 @@ public:
 	ofTrueTypeFont  fontSmall;
 	ofTrueTypeFont  fontBig;
 	
+	ofTrueTypeFont  fontMediumFixed;
+	ofTrueTypeFont  fontSmallFixed;
+
 	ofxNetworkUtils networkUtils;
 	
 	bool connected;

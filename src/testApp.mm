@@ -48,15 +48,20 @@ void testApp::setup(){
 	printf("sender : %s:%i\n",host.c_str(),SENDER_PORT);
 	
 	// load fonts
-	fontSmall.loadFont(ofToDataPath("Helvetica Neue CE 55 Roman.ttf"),9);
-	fontMedium.loadFont(ofToDataPath("Helvetica Neue CE 75 Bold.ttf"),16,true,true,true);
-	fontMediumBold.loadFont(ofToDataPath("Helvetica Neue CE 75 Bold.ttf"),16,true,true,true);
-	fontBig.loadFont(ofToDataPath("automat.ttf"),25);
+	fontSmall.loadFont(ofToDataPath("Helvetica Neue Roman.ttf"),9,true,true,true);
+	fontMedium.loadFont(ofToDataPath("Helvetica Neue Bold.ttf"),16,true,true,true);
+	fontMediumBold.loadFont(ofToDataPath("Helvetica Neue Bold.ttf"),16,true,true,true);
+	fontBig.loadFont(ofToDataPath("automat.ttf"),25,true,true,true);
+	
+	fontSmallFixed.loadFont(ofToDataPath("Courier New.ttf"),9,true,true,true);
+	fontMediumFixed.loadFont(ofToDataPath("Courier New.ttf"),16,true,true,true);
+	
 	
 	connected = false;
 	lastPingTime= ofGetElapsedTimeMillis();
 	
 	//ofDisableSmoothing();
+	ofEnableSmoothing();
 	ofEnableAlphaBlending();
 	ofBackground(74, 82, 90); // nice DF background color
 }
@@ -189,8 +194,8 @@ void testApp::draw() {
 	
 	if ((switchboardTouchedProcessIndex==-1) && touchIsDown) ofSetColor(255, 255, 255);
 	fontBig.drawString("Switchboard Remote",15,35);
-	fontSmall.drawString("local IP : "+networkUtils.getInterfaceAddress(0),15,56);
-	fontSmall.drawString("remote IP : "+host, 15, 70);
+	fontSmallFixed.drawString("local IP  : "+networkUtils.getInterfaceAddress(0),15,56);
+	fontSmallFixed.drawString("remote IP : "+host, 15, 70);
 	
 }
 
@@ -214,19 +219,16 @@ void testApp::touchDown(float x, float y, int touchId, ofxMultiTouchCustomData *
 	if ((y<50)&&(x<50)){
 		
 		switchboardTouchedProcessIndex = -2;
-		
-		
+			
 	} else if (y<100){
 		
 		switchboardTouchedProcessIndex = -1;
-		
 	}
 	
 	for (int i = 0; i< switchboardProcessList.size(); i++){
 		if ((y>LIST_TOP-LIST_ELEMENT_HEIGHT+(i*LIST_ELEMENT_HEIGHT)+scrollOffset) && (y<LIST_TOP+(i*LIST_ELEMENT_HEIGHT)+scrollOffset)){
 			
 			switchboardTouchedProcessIndex = i;
-			
 			break;
 		}
 	}
@@ -316,10 +318,7 @@ void testApp::touchUp(float x, float y, int touchId, ofxMultiTouchCustomData *da
 			}
 			break;
 		}
-		
-	}
-	
-	
+	}	
 }
 
 //--------------------------------------------------------------
@@ -332,7 +331,8 @@ void testApp::lostFocus() {
 
 //--------------------------------------------------------------
 void testApp::gotFocus() {
-	connected=false;
+	
+	connected=false; // unset connection flag to reset process list
 }
 
 //--------------------------------------------------------------
