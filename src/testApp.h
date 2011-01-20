@@ -33,6 +33,7 @@ public:
 	void lostFocus();
 	void gotFocus();
 	void gotMemoryWarning();
+	void deviceOrientationChanged(int newOrientation);
 	
 	string			myIP;
 	
@@ -55,9 +56,10 @@ public:
 	string			host;
 	string			remote_host;
 	
-	ofTrueTypeFont  automat;
-	ofTrueTypeFont  smallAutomat;
-	ofTrueTypeFont  bigAutomat;
+	ofTrueTypeFont  fontMedium;
+	ofTrueTypeFont	fontMediumBold;
+	ofTrueTypeFont  fontSmall;
+	ofTrueTypeFont  fontBig;
 	
 	ofxNetworkUtils networkUtils;
 	

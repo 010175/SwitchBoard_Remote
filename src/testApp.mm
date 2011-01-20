@@ -4,7 +4,7 @@
 #define SENDER_PORT 5555
 #define RECEIVER_PORT 4444
 
-#define LIST_ELEMENT_HEIGHT 30.0f
+#define LIST_ELEMENT_HEIGHT 35.0f
 #define LIST_TOP 120.0f
 
 #define PING_INTERVAL 4000
@@ -47,16 +47,18 @@ void testApp::setup(){
 	
 	printf("sender : %s:%i\n",host.c_str(),SENDER_PORT);
 	
-	automat.loadFont(ofToDataPath("automat.ttf"),24);
-	smallAutomat.loadFont(ofToDataPath("automat.ttf"),10);
-	bigAutomat.loadFont(ofToDataPath("automat.ttf"),32);
+	// load fonts
+	fontSmall.loadFont(ofToDataPath("Helvetica Neue CE 55 Roman.ttf"),9);
+	fontMedium.loadFont(ofToDataPath("Helvetica Neue CE 75 Bold.ttf"),16,true,true,true);
+	fontMediumBold.loadFont(ofToDataPath("Helvetica Neue CE 75 Bold.ttf"),16,true,true,true);
+	fontBig.loadFont(ofToDataPath("automat.ttf"),25);
 	
 	connected = false;
 	lastPingTime= ofGetElapsedTimeMillis();
 	
-	
+	//ofDisableSmoothing();
+	ofEnableAlphaBlending();
 	ofBackground(74, 82, 90); // nice DF background color
-	
 }
 
 
@@ -147,48 +149,48 @@ void testApp::update() {
 
 //--------------------------------------------------------------
 void testApp::draw() {
-	
-	
 	ofSetColor(200, 200, 200);
 	
 	ofPushMatrix();
 	ofTranslate(0.0f, scrollOffset, 0.0f);
 	
-	if ((switchboardTouchedProcessIndex==-1) && touchIsDown) ofSetColor(255, 255, 255);
-	bigAutomat.drawString("Switchboard",15,35);
-	bigAutomat.drawString("Remote",261,65);
-	
-	smallAutomat.drawString("my IP : "+networkUtils.getInterfaceAddress(0),15,46);
-	smallAutomat.drawString("remote IP : "+host, 15, 56);
-	
-	
-	
 	if (connected ){
 		for (int i = 0; i< switchboardProcessList.size(); i++){
 			
 			if ((i==switchboardTouchedProcessIndex)&&touchIsDown&&(!scrolling)) {
-				ofSetColor(255, 100, 100);
-				//ofCircle(touchPoint.x, touchPoint.y, 10);
+				ofSetColor(150, 150, 150);
+				fontMedium.drawString(switchboardProcessList[i].c_str(),15,LIST_TOP+(i*LIST_ELEMENT_HEIGHT));
 				
+				//ofCircle(touchPoint.x, touchPoint.y, 10);
 			} else if (i==switchboardSelectedProcessIndex) {
 				
 				ofSetColor(255, 255, 255);
+				fontMediumBold.drawString(switchboardProcessList[i].c_str(),15,LIST_TOP+(i*LIST_ELEMENT_HEIGHT));
+			} else {
 				
-			} else ofSetColor(200, 200, 200);
-			
-			
-			automat.drawString(switchboardProcessList[i].c_str(),15,LIST_TOP+(i*LIST_ELEMENT_HEIGHT));
-			
+				ofSetColor(200, 200, 200);
+				fontMedium.drawString(switchboardProcessList[i].c_str(),15,LIST_TOP+(i*LIST_ELEMENT_HEIGHT));
+			}	
 		}
 	} else {
 		int alpha = ((ofGetElapsedTimeMillis()/10)%255);
 		ofSetColor(255, 255, 255,255-alpha);
-		bigAutomat.drawString("Connecting",85,(ofGetHeight()/2)+15);
+		int stringWidth = fontMediumBold.getStringBoundingBox("Connecting", 0, 0).width;
+		
+		fontMediumBold.drawString("Connecting",(ofGetWidth()/2)-(stringWidth/2),(ofGetHeight()/2)+15);
 	}
-	
 	
 	ofPopMatrix();
 	
+	ofSetColor(0,0,0,127); // nice DF background color
+	ofRect(0,0, ofGetWidth(), 100);
+	
+	ofSetColor(200, 200, 200);
+	
+	if ((switchboardTouchedProcessIndex==-1) && touchIsDown) ofSetColor(255, 255, 255);
+	fontBig.drawString("Switchboard Remote",15,35);
+	fontSmall.drawString("local IP : "+networkUtils.getInterfaceAddress(0),15,56);
+	fontSmall.drawString("remote IP : "+host, 15, 70);
 	
 }
 
@@ -335,4 +337,8 @@ void testApp::gotFocus() {
 
 //--------------------------------------------------------------
 void testApp::gotMemoryWarning() {
+}
+
+//--------------------------------------------------------------
+void testApp::deviceOrientationChanged(int newOrientation){
 }
