@@ -35,6 +35,8 @@ public:
 	void gotMemoryWarning();
 	void deviceOrientationChanged(int newOrientation);
 	
+	bool pointInRectangle(ofPoint aPoint, ofRectangle aRectangle);
+	
 	string			myIP;
 	
 	ofxOscSender	sender;
@@ -63,11 +65,13 @@ public:
 	
 	ofTrueTypeFont  fontMediumFixed;
 	ofTrueTypeFont  fontSmallFixed;
-
+	
 	ofxNetworkUtils networkUtils;
 	
 	bool connected;
 	int lastPingTime;
 	
+	ofRectangle		quitButtonRectangle;
+	ofRectangle		resetButtonRectangle;
 };
 

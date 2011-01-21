@@ -15,7 +15,7 @@ void testApp::setup(){
 	
 	ofSetLogLevel(OF_LOG_VERBOSE);
 	
-	iPhoneSetOrientation(OFXIPHONE_ORIENTATION_LANDSCAPE_RIGHT);
+	iPhoneSetOrientation(OFXIPHONE_ORIENTATION_PORTRAIT);
 	
 	// initialize the accelerometer
 	// ofxAccelerometer.setup();
@@ -51,11 +51,13 @@ void testApp::setup(){
 	fontSmall.loadFont(ofToDataPath("Helvetica Neue Roman.ttf"),9,true,true,true);
 	fontMedium.loadFont(ofToDataPath("Helvetica Neue Bold.ttf"),16,true,true,true);
 	fontMediumBold.loadFont(ofToDataPath("Helvetica Neue Bold.ttf"),16,true,true,true);
-	fontBig.loadFont(ofToDataPath("automat.ttf"),25,true,true,true);
+	fontBig.loadFont(ofToDataPath("automat.ttf"),16,true,true,true);
 	
 	fontSmallFixed.loadFont(ofToDataPath("Courier New.ttf"),9,true,true,true);
 	fontMediumFixed.loadFont(ofToDataPath("Courier New.ttf"),16,true,true,true);
 	
+	quitButtonRectangle = ofRectangle(ofGetWidth()-80, 40, 30, 30);
+	resetButtonRectangle = ofRectangle(ofGetWidth()-40, 40, 30, 30);
 	
 	connected = false;
 	lastPingTime= ofGetElapsedTimeMillis();
@@ -164,17 +166,17 @@ void testApp::draw() {
 			
 			if ((i==switchboardTouchedProcessIndex)&&touchIsDown&&(!scrolling)) {
 				ofSetColor(150, 150, 150);
-				fontMedium.drawString(switchboardProcessList[i].c_str(),15,LIST_TOP+(i*LIST_ELEMENT_HEIGHT));
+				fontMedium.drawString(switchboardProcessList[i].c_str(),10,LIST_TOP+(i*LIST_ELEMENT_HEIGHT));
 				
 				//ofCircle(touchPoint.x, touchPoint.y, 10);
 			} else if (i==switchboardSelectedProcessIndex) {
 				
 				ofSetColor(255, 255, 255);
-				fontMediumBold.drawString(switchboardProcessList[i].c_str(),15,LIST_TOP+(i*LIST_ELEMENT_HEIGHT));
+				fontMediumBold.drawString(switchboardProcessList[i].c_str(),10,LIST_TOP+(i*LIST_ELEMENT_HEIGHT));
 			} else {
 				
 				ofSetColor(200, 200, 200);
-				fontMedium.drawString(switchboardProcessList[i].c_str(),15,LIST_TOP+(i*LIST_ELEMENT_HEIGHT));
+				fontMedium.drawString(switchboardProcessList[i].c_str(),10,LIST_TOP+(i*LIST_ELEMENT_HEIGHT));
 			}	
 		}
 	} else {
@@ -188,14 +190,16 @@ void testApp::draw() {
 	ofPopMatrix();
 	
 	ofSetColor(0,0,0,127); // nice DF background color
-	ofRect(0,0, ofGetWidth(), 100);
+	ofRect(0,0, ofGetWidth(), 80);
 	
 	ofSetColor(200, 200, 200);
 	
 	if ((switchboardTouchedProcessIndex==-1) && touchIsDown) ofSetColor(255, 255, 255);
-	fontBig.drawString("Switchboard Remote",15,35);
-	fontSmallFixed.drawString("local IP  : "+networkUtils.getInterfaceAddress(0),15,56);
-	fontSmallFixed.drawString("remote IP : "+host, 15, 70);
+	fontBig.drawString("Switchboard Remote",10,18);
+	fontSmallFixed.drawString(networkUtils.getInterfaceAddress(0)+" <--> "+host,10,60);
+	
+	ofRect(quitButtonRectangle.x,quitButtonRectangle.y,quitButtonRectangle.width, quitButtonRectangle.height);
+	ofRect(resetButtonRectangle.x,resetButtonRectangle.y,resetButtonRectangle.width, resetButtonRectangle.height);
 	
 }
 
@@ -215,14 +219,14 @@ void testApp::touchDown(float x, float y, int touchId, ofxMultiTouchCustomData *
 	touchPoint = ofPoint(x, y);
 	velocity = 0.0f;
 	
-	
-	if ((y<50)&&(x<50)){
-		
+	if (pointInRectangle(touchPoint, quitButtonRectangle)){ // stop process
 		switchboardTouchedProcessIndex = -2;
-			
-	} else if (y<100){
+		return;
+		
+	} else if (pointInRectangle(touchPoint, resetButtonRectangle)){ // reset connection
 		
 		switchboardTouchedProcessIndex = -1;
+		return;
 	}
 	
 	for (int i = 0; i< switchboardProcessList.size(); i++){
@@ -274,7 +278,7 @@ void testApp::touchUp(float x, float y, int touchId, ofxMultiTouchCustomData *da
 	
 	if (scrolling) return;
 	
-	if ((y<50)&&(x<50)&&(switchboardTouchedProcessIndex==-2)){
+	if (pointInRectangle(ofPoint(x,y), quitButtonRectangle)&&(switchboardTouchedProcessIndex==-2)){
 		switchboardSelectedProcessIndex = -1;
 		printf("osc send : stop\n");
 		
@@ -284,12 +288,10 @@ void testApp::touchUp(float x, float y, int touchId, ofxMultiTouchCustomData *da
 		
 		return;
 		
-	} else if ((y<100)&&(switchboardTouchedProcessIndex==-1)){
+	} else if (pointInRectangle(ofPoint(x,y), resetButtonRectangle)&&(switchboardTouchedProcessIndex==-1)){
 		
 		connected = false; // unset connection flag to reset process list
-		
 		return;
-		
 	}
 	
 	for (int i = 0; i< switchboardProcessList.size(); i++){
@@ -341,4 +343,16 @@ void testApp::gotMemoryWarning() {
 
 //--------------------------------------------------------------
 void testApp::deviceOrientationChanged(int newOrientation){
+}
+		
+//--------------------------------------------------------------
+bool testApp::pointInRectangle(ofPoint aPoint, ofRectangle aRectangle)
+{
+	return 
+	(
+	 (aPoint.x>=aRectangle.x)&&
+	 (aPoint.x<=aRectangle.x+aRectangle.width)&&
+	 (aPoint.y>=aRectangle.y)&&
+	 (aPoint.y<=aRectangle.y+aRectangle.height)
+	);
 }
